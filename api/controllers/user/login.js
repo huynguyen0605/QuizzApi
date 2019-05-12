@@ -1,5 +1,6 @@
 var resList = require('../../const/ResponseList')
 var resMsg = require('../../const/ResponseMsg')
+var adminList = require('../../const/Admin').ADMIN_LIST
 module.exports = {
     description: 'login account',
     inputs: {
@@ -16,6 +17,9 @@ module.exports = {
     fn: async function (inputs, exits) {
         try {
             var { username, password } = inputs;
+            if (adminList.indexOf(username) > -1) this.req.session.isadmin = true;
+            else this.req.session.isadmin = false;
+            
             var user = await User.findOne({
                 username: username,
             });

@@ -44,6 +44,7 @@ module.exports = {
                     email: email,
                 }).fetch()
                 this.req.session.userid = user.id;
+                user.password = undefined;
                 return exits.customsuccess(resList.success(resMsg.REGISTER_SUCCESS, user));
             }
         } catch (e) {
