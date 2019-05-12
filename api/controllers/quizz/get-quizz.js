@@ -16,7 +16,7 @@ module.exports = {
                 id: quizzId,
                 isActive: true,
             })
-            return exits.customsuccess(resList.success(result));
+            return exits.customsuccess(resList.success(resMsg.SUCCESS, result));
         } catch (e) {
             return exits.error(e.message);
         }

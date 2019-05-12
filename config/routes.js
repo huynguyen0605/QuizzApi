@@ -21,6 +21,7 @@ module.exports.routes = {
 
   'POST /user/register': { action: 'user/register' },
   'POST /user/login': { action: 'user/login' },
+  'GET /user/results': { action: 'user/get-results'},
 
   'GET /challenges/': { action: 'challenge/get-challenge-list' },
   'POST /challenges/': { action: 'challenge/create-challenge', scope: 'admin' },
@@ -37,6 +38,9 @@ module.exports.routes = {
   'GET /quizz/:quizzId': { action: 'quizz/get-quizz' },
   'PUT /quizz/:quizzId': { action: 'quizz/put-quizz', scope: 'admin' },
   'DELETE /quizz/:quizzId': { action: 'quizz/delete-quizz', scope: 'admin' },
+
+  'GET /ranks': { action: 'challenge/get-ranks'},
+
 
   /***************************************************************************
   *                                                                          *

@@ -54,7 +54,7 @@ module.exports = {
                             bestTime = time;
                         }
                     }
-                    var newResult = Result.update({
+                    var newResult = await Result.update({
                         challengeId: challengeId,
                         userId: this.req.session.userid,
                         startTime: startTime,
@@ -69,7 +69,7 @@ module.exports = {
                     isCorrect: isCorrect,
                     score: score,
                 }
-                return exits.customsuccess(resList.success(output));
+                return exits.customsuccess(resList.success(resMsg.SUCCESS, output));
             } else {
                 return exits.customsuccess(resList.errBusiness(resMsg.INTERNAL_ERROR));
             }

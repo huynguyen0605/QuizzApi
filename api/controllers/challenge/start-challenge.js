@@ -23,7 +23,7 @@ module.exports = {
                     userId: this.req.session.userid,
                     startTime: Date.now(),
                 }).fetch()
-                return exits.customsuccess(resList.success(result));
+                return exits.customsuccess(resList.success(resMsg.SUCCESS, result));
             } else {
                 var result = await Result.updateOne({
                     challengeId: challengeId,
@@ -32,7 +32,7 @@ module.exports = {
                     score: 0,
                     startTime: Date.now(),
                 })
-                return exits.customsuccess(resList.success(result));
+                return exits.customsuccess(resList.success(resMsg.SUCCESS, result));
             }
         } catch (e) {
             return exits.error(e.message);
