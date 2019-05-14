@@ -47,6 +47,10 @@ module.exports.routes = {
       controller: 'MainController',
       action: 'rank',
   },
+  '/main/challenges' : {
+    controller : 'mainController',
+    action : 'getChallengesList',
+  }
 
   /***************************************************************************
   *                                                                          *

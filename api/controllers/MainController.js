@@ -10,5 +10,18 @@ module.exports = {
             challengeList: challengeList,
             totalRanks: totalRanks,
         });
+    },
+
+    getChallengesList : async function(req,res){
+        var challengeList = await getChallengeList.getChallengeList(10);
+        var challengesChunk = [];
+        var chunkSize = 4;
+
+        for(var i =0 ; i < challengeList.d.length; i+=chunkSize){
+            challengesChunk.push(challengeList.d.slice(i,i+chunkSize));
+        }
+        return res.render("challenges.ejs",{
+            challengeList: challengesChunk
+        })
     }
 }
