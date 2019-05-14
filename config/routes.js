@@ -41,6 +41,12 @@ module.exports.routes = {
 
   'GET /ranks': { action: 'challenge/get-ranks' },
 
+  '/login': { view: 'login' },
+  '/register': { view: 'register' },
+  '/main/rank': {
+      controller: 'MainController',
+      action: 'rank',
+  },
 
   /***************************************************************************
   *                                                                          *
