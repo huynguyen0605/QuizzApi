@@ -32,7 +32,7 @@ module.exports.routes = {
 
   'GET /challenges/:challengeId/quizz': { action: 'quizz/get-quizz-list' },
   'POST /challenges/:challengeId/quizz': { action: 'quizz/create-quizz' },
-  'POST /challenges/:challengeId/quizz/:quizzId/submit': { action: 'quizz/submit-quizz' },
+  'POST /challenges/:challengeId/quizz/:quizzId/submit': { action: 'quizz/submit-quizz' }, 
   'GET /challenges/:challengeId/randomQuizz': { action: 'quizz/gen-quizz-for-challenge' },
 
   'GET /quizz/:quizzId': { action: 'quizz/get-quizz' },
@@ -48,8 +48,12 @@ module.exports.routes = {
       action: 'rank',
   },
   '/main/challenges' : {
-    controller : 'mainController',
+    controller : 'MainController',
     action : 'getChallengesList',
+  },
+  '/main/statistic': {
+    controller: 'MainController',
+    action: 'getStatistic'
   }
 
   /***************************************************************************
