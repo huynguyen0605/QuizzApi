@@ -54,6 +54,30 @@ module.exports.routes = {
   '/main/statistic': {
     controller: 'MainController',
     action: 'getStatistic'
+  },
+  '/dashboard': {
+    controller: 'DashboardController',
+    action: 'getDashboard',
+  },
+  '/dashboard/challenges': {
+    controller: 'DashboardController',
+    action: 'getChallenge'
+  },
+  '/dashboard/challenges/:challengeId': {
+    controller: 'DashboardController',
+    action: 'getChallenge'
+  },
+  '/dashboard/challenges/:challengeId/quizz': {
+    controller: 'DashboardController',
+    action: 'getQuizzes'
+  },
+  '/dashboard/challenges/:challengeId/quizz/addQuizz': {
+    controller: 'DashboardController',
+    action: 'addQuizz'
+  },
+  '/dashboard/challenges/:challengeId/quizz/addQuizz/:quizzId': {
+    controller: 'DashboardController',
+    action: 'addQuizz'
   }
 
   /***************************************************************************

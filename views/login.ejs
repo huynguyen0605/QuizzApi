@@ -160,7 +160,11 @@
                     success: function (result) {
                         if (result.s == 0) {
                             alert(result.errmsg);
-                            window.location.replace('/main/rank');
+                            if (window.location.href.indexOf('dashboard')) {
+                                window.location.replace('/dashboard'); 
+                            } else {
+                                window.location.replace('/main/rank');
+                            }
                         }
                         else {
                             alert(result.errmsg);

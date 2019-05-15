@@ -1,0 +1,118 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thêm câu hỏi</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <table id="myTable" class=" table order-list">
+            <thead>
+                <tr>
+                    <td>Nội dung</td>
+                    <td>Danh sách đáp án</td>
+                    <td>Đáp án đúng</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-sm-2">
+                        <input id="content" type="text" name="name" class="form-control"
+                            value="<%= quizzInfo.content %>" />
+                    </td>
+                    <td class="col-sm-2">
+                        <input id="listanswer" type="mail" name="mail" class="form-control"
+                            value="<%= quizzInfo.listAnswer %>" />
+                    </td>
+                    <td class="col-sm-2">
+                        <input id="correctanswer" type="mail" name="mail" class="form-control"
+                            value="<%= quizzInfo.correctAnswer %>" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: left;">
+                        <%
+                                if (!quizzInfo.content) { 
+                                %>
+                        <button type="button" class="btn btn-primary" onClick="addQuizz('<%= challengeId %>')">Thêm câu
+                            hỏi</button></th>
+                        <%
+                                } else {
+                                    %>
+                                    <button type="button" class="btn btn-info" onClick="editQuizz('<%= challengeId %>', '<%= quizzInfo.id %>')">Sửa</button></th>
+                        <%
+                                }
+                            %>
+                    </td>
+                </tr>
+                <tr>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</body>
+<script>
+    function addQuizz(challengeId) {
+        try {
+            var data = {
+                content: $('#content').val(),
+                listAnswer: $('#listanswer').val(),
+                correctAnswer: $('#correctanswer').val(),
+            }
+            console.log('data:', data);
+            $.ajax({
+                url: "/challenges/" + challengeId + '/quizz' ,
+                type: "post",
+                data: data,
+                success: function (result) {
+                    if (result.s == 0) {
+                        alert(result.errmsg);
+                        window.location.replace('/dashboard/challenges/' + challengeId + '/quizz')
+                    }
+                    else {
+                        alert(result.errmsg);
+                    }
+                }
+            })
+        } catch (e) {
+            alert(e.message)
+        }
+    }
+
+    function editQuizz(challengeId, quizzId) {
+        try {
+            var data = {
+                content: $('#content').val(),
+                listAnswer: $('#listanswer').val(),
+                correctAnswer: $('#correctanswer').val(),
+            }
+            console.log('data:', data);
+            $.ajax({
+                url: "/quizz/" + quizzId ,
+                type: "put",
+                data: data,
+                success: function (result) {
+                    if (result.s == 0) {
+                        alert(result.errmsg);
+                        window.location.replace('/dashboard/challenges/' + challengeId + '/quizz')
+                    }
+                    else {
+                        alert(result.errmsg);
+                    }
+                }
+            })
+        } catch (e) {
+            alert(e.message)
+        }
+    }
+
+</script>

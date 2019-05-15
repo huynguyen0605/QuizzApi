@@ -24,4 +24,7 @@ module.exports.policies = {
   'quizz/create-quizz': ['is-admin'],
   'quizz/put-quizz': ['is-admin'],
   'quizz/delete-quizz': ['is-admin'],
+
+  'main/*': ['is-logged-in'],
+  'dashboard/*': ['is-logged-in', 'is-admin'],
 };

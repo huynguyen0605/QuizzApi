@@ -1,0 +1,109 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thêm gói câu hỏi</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <table id="myTable" class=" table order-list">
+            <thead>
+                <tr>
+                    <td>Tên</td>
+                    <td>Mô tả</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-sm-2">
+                        <input id="name" type="text" name="name" class="form-control"
+                            value="<%= challengeInfo.name %>" />
+                    </td>
+                    <td class="col-sm-4">
+                        <input id="description" type="mail" name="mail" class="form-control"
+                            value="<%= challengeInfo.description %>" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: left;">
+                        <%
+                            if (!challengeInfo.name) { 
+                            %>
+                        <input type="button" class="btn btn-primary " id="addChallenge" value="Thêm" />
+                        <%
+                            } else {
+                                %>
+                                <input type="button" class="btn btn-primary " id="edit" value="Sửa" />
+                                <%
+                            }
+                        %>
+                    </td>
+                </tr>
+                <tr>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</body>
+<script>
+    $("#addChallenge").on("click", function () {
+        try {
+            var data = {
+                name: $('#name').val(),
+                description: $('#description').val(),
+            }
+            $.ajax({
+                url: "/challenges",
+                type: "post",
+                data: data,
+                success: function (result) {
+                    if (result.s == 0) {
+                        alert(result.errmsg);
+                        window.location.replace('/dashboard')
+                    }
+                    else {
+                        alert(result.errmsg);
+                    }
+                }
+            })
+        } catch (e) {
+            alert(e.message)
+        }
+    });
+
+    $("#edit").on("click", function () {
+        try {
+            var data = {
+                name: $('#name').val(),
+                description: $('#description').val(),
+            }
+            var challengeId = "<%= challengeInfo.id %>"
+            $.ajax({
+                url: "/challenges/" + challengeId,
+                type: "put",
+                data: data,
+                success: function (result) {
+                    if (result.s == 0) {
+                        alert(result.errmsg);
+                        window.location.replace('/dashboard')
+                    }
+                    else {
+                        alert(result.errmsg);
+                    }
+                }
+            })
+        } catch (e) {
+            alert(e.message)
+        }
+    });
+
+</script>
