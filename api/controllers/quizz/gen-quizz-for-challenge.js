@@ -13,7 +13,7 @@ function shuffle(arr, n) {
     return result;
 }
 
-module.exports = {
+var instance = module.exports = {
     description: 'get quizz list by challenge id',
     inputs: {
         count: {
@@ -25,23 +25,27 @@ module.exports = {
         }
     },
     exits: require('../../utils/ExitSignalsUtils').exitsignals,
+    genQuizz: async function (count, challengeId) {
+        //lay tat ca cau hoi theo goi cau hoi
+
+        var allQuizz = await Quizz.find({
+            challengeId: challengeId,
+            isActive: true
+        })
+
+        //neu count khong duoc truyen len hoac count lon hon so luong cau hoi thi coi nhu tim tat ca cau hỏi
+        if (!count || (count && count > allQuizz.length)) {
+            count = allQuizz.length;
+        }
+
+        //lay count phan tu ngau nhien trong tat ca cau hoi de tra ve
+        var output = shuffle(allQuizz, count);
+        return output;
+    },
     fn: async function (inputs, exits) {
         try {
             var { count, challengeId } = inputs;
-            //lay tat ca cau hoi theo goi cau hoi
-            var allQuizz = await Quizz.find({
-                challengeId: challengeId,
-                isActive: true
-            })
-
-            //neu count khong duoc truyen len hoac count lon hon so luong cau hoi thi coi nhu tim tat ca cau hỏi
-            if (!count || (count && count > allQuizz.length)) {
-                count = allQuizz.length;
-            }
-
-            //lay count phan tu ngau nhien trong tat ca cau hoi de tra ve
-            var output = shuffle(allQuizz, count);
-            
+            var output = await instance.genQuizz(count, challengeId);
             return exits.customsuccess(resList.success(resMsg.SUCCESS, output));
         } catch (e) {
             return exits.error(e.message);

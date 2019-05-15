@@ -46,6 +46,8 @@
                                 <%
                             }
                         %>
+                        <button type="button" class="btn btn-warning" id="back"
+                        onClick="back()">Quay lại</button>
                     </td>
                 </tr>
                 <tr>
@@ -55,6 +57,9 @@
     </div>
 </body>
 <script>
+    function back() {
+        window.location.replace('/dashboard')
+    }
     $("#addChallenge").on("click", function () {
         try {
             var data = {

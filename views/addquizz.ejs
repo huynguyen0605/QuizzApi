@@ -52,6 +52,7 @@
                         <%
                                 }
                             %>
+                        <button type="button" class="btn btn-warning" onClick="back('<%= challengeId %>')">Quay lại</button>
                     </td>
                 </tr>
                 <tr>
@@ -61,6 +62,9 @@
     </div>
 </body>
 <script>
+    function back(challengeId) {
+        window.location.replace('/dashboard/challenges/' + challengeId + '/quizz');
+    }
     function addQuizz(challengeId) {
         try {
             var data = {

@@ -1,6 +1,9 @@
 var getChallengeList = require('./challenge/get-challenge-list')
 var getRankList = require('./challenge/get-ranks')
 var getResults = require('./user/get-results')
+var currentQuizzList = require('../const/CurrentQuizzList')
+var startChallenge = require('./challenge/start-challenge')
+var genQuizz = require('./quizz/gen-quizz-for-challenge')
 module.exports = {
     rank: async function (req, res) {
         var challengeId = req.query ? req.query.challengeId : null;
@@ -42,5 +45,33 @@ module.exports = {
                 resultList: resultList
             })
         }
-    }
+    },
+
+    startContest: async function (req, res) {
+        var challengeId = req.param('challengeId');
+        if (!challengeId) res.redirect('/main/rank');
+        var result = await startChallenge.generateResult(challengeId, req.session.userid);
+        var quizzList = await genQuizz.genQuizz(10, challengeId);
+        //khoi tao goi cau hoi hien tai
+        currentQuizzList.reset();
+        currentQuizzList.setCurrentQuizzList(quizzList);
+        res.redirect('/main/contest/' + challengeId + "?quizz=" 
+            + currentQuizzList.getCurrentQuizzIndex() + "&startTime=" + result.startTime)
+    },
+
+    getSingleQuizz: async function (req, res) {
+        var challengeId = req.param('challengeId');
+        var startTime = req.param('startTime');
+        var currentQuizz = currentQuizzList.getQuizzByIndex(currentQuizzList.getCurrentQuizzIndex());
+        if (!currentQuizz) return res.redirect('/main/statistic')
+        var currentScore = currentQuizzList.getCurrentPoint();
+        return res.render('singlequizz.ejs', {
+            currentScore: currentScore,
+            startTime: startTime,
+            challengeId: challengeId,
+            currentQuizz: currentQuizz,
+            currentQuizzId: currentQuizz.id,
+            quizzNum: currentQuizzList.getCurrentQuizzIndex()
+        });
+    },
 }

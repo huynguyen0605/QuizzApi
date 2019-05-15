@@ -51,6 +51,14 @@ module.exports.routes = {
     controller : 'MainController',
     action : 'getChallengesList',
   },
+  '/main/startContest/:challengeId': {
+    controller: 'MainController',
+    action: 'startContest'
+  },
+  '/main/contest/:challengeId': {
+    controller: 'MainController',
+    action: 'getSingleQuizz',
+  },
   '/main/statistic': {
     controller: 'MainController',
     action: 'getStatistic'
