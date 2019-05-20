@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quản lí câu hỏi</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card text-left">
+            <ul class="list-group list-group-flush ">
+                <table class="table" style="background-color: white; font-size: 14px">
+                    <thead>
+                        <tr style="background-color: rgb(52,58,64)">
+                            <th scope="col" style="color: white">ID</th>
+                            <th scope="col" style="color: white">Nội dung</th>
+                            <th scope="col" style="color: white">Danh sách đáp án</th>
+                            <th scope="col" style="color: white">Đáp án đúng</th>
+                            <th scope="col" style="color: white"></th>
+                            <th scope="col" style="color: white"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var id=0; id < quizzList.length; id ++) {
+                                    %>
+                        <tr>
+                            <th><%= quizzList[id].id %></th>
+                            <th>
+                                <%= quizzList[id].content %></th>
+                            <th><%= quizzList[id].listAnswer %></th>
+                            <th><%= quizzList[id].correctAnswer %></th>
+                            <th><button type="button" class="btn btn-danger"
+                                    onClick="deleteQuizz('<%= quizzList[id].id %>')">Xóa</button></th>
+                            <th><button type="button" class="btn btn-info"
+                                    onClick="editQuizz('<%= challengeId %>', '<%= quizzList[id].id %>')">Sửa</button></th>
+                        </tr>
+                        <%
+                                  } %>
+                    </tbody>
+            </ul>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#clientIdModal"
+                onClick="addQuizz('<%= challengeId %>')">Thêm câu hỏi</button>
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#clientIdModal"
+                onClick="back()" style="margin-left: 4px">Quay lại</button>
+        </div>
+    </div>
+</body>
+<script>
+    function back() {
+        window.location.replace('/dashboard')
+    }
+    function deleteQuizz(quizzId) {
+        try {
+            $.ajax({
+                url: "/quizz/" + quizzId,
+                type: "delete",
+                success: function (result) {
+                    if (result.s == 0) {
+                        alert(result.errmsg)
+                        window.location.reload()
+                    } else {
+                        alert(result.errmsg)
+                    }
+                }
+            })
+        } catch (e) {
+            alert(e);
+        }
+    }
+    function editQuizz(challengeId, quizzId) {
+        window.location.replace('/dashboard/challenges/' + challengeId + '/quizz/addQuizz/' + quizzId);
+    }
+    function addQuizz(challengeId) {
+        window.location.replace('/dashboard/challenges/' + challengeId + '/quizz/addQuizz')
+    }
+    function seeQuizz(challengeId) {
+        window.location.replace('/dashboard/challenges/' + challengeId + '/quizz')
+    }
+</script>
+
+</html>

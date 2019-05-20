@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bảng xếp hạng</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        * {
+            font-size: 16px !important;
+        }
+
+        .rowChallengesList {
+            margin-top: 20px;
+        }
+
+        body {
+            min-height: 450px;
+            height: 100vh;
+            margin: 0;
+            background: -webkit-radial-gradient(ellipse farthest-corner at center top, #f39264 0%, #f2606f 100%);
+            background: radial-gradient(ellipse farthest-corner at center top, #f39264 0%, #f2606f 100%);
+            color: #fff;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .row_answer {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .row_answer .btn {
+            margin-right: 10px;
+        }
+
+        .question {
+            font-weight: bold;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+
+
+
+<body>
+    <% include image.ejs %>
+    <% include navbar.ejs %>
+    <div class="container">
+        <div class="title_challenges_quizz text-center">
+            <h3><strong>Chào mừng bạn đến với các câu hỏi trong gói câu hỏi số <%= quizzNum + 1 %></strong></h3>
+            <h4><i><strong>Note : </strong>Khi bạn click vào đáp án trả lời, trang sẽ tự động điều hướng bạn sang các
+                    câu hỏi khác</i></h4>
+            <h5><i><strong>Điểm hiện tại : </strong><%= currentScore %> </i></h5>
+        </div>
+        <div class="question_group">
+            <div class="col-md-8 col-md-push-2">
+                <div class="question">
+                    Câu <%= quizzNum + 1 %> : <%= currentQuizz.content %>
+                </div>
+
+                <% var alphabet = 'ABCDEFGHIKLMN' %>
+                <% var listAnswer = currentQuizz.listAnswer.split(',') %>
+
+                <% for (var i = 0; i < listAnswer.length; i ++) {
+                    %>
+                <div class="row row_answer">
+                    <button class="btn btn-primary" onClick="submitAnswer('<%= listAnswer[i] %>')"><%= alphabet[i] %></button> 
+                    <%= listAnswer[i] %>
+                </div>
+                <%}
+                %>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+    function submitAnswer(answer) {
+        try {
+                var data = {
+                    quizzId: '<%= currentQuizzId %>',
+                    challengeId: '<%= challengeId %>',
+                    startTime: '<%= startTime %>',
+                    answer: answer,
+                }
+                $.ajax({
+                    url: "/challenges/" + '<%= challengeId %>' 
+                    + '/quizz/' + '<%= currentQuizzId %>' + '/submit',
+                    type: "post",
+                    data: data,
+                    success: function (result) {
+                        if (result.s == 0) {
+                            window.location.replace('/main/contest/' + '<%= challengeId %>' + "?count="
+                                + '<%= quizzNum + 1 %>' + '&startTime=' + '<%= startTime %>');
+                        }
+                        else {
+                            alert(result.errmsg);
+                        }
+                    }
+                })
+            } catch (e) {
+                alert(e.message);
+            }
+    }
+</script>
+
+</html>

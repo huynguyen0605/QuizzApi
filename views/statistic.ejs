@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Vào thi</title>
+    <title>Thống kê kết quả</title>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Open+Sans'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -14,12 +14,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <style>
-        *{
-            font-size: 16px!important;
-        }
-        .rowChallengesList{
-            margin-top: 20px;
-        }
         body {
             min-height: 450px;
             height: 100vh;
@@ -40,7 +34,7 @@
     <% include navbar.ejs %>
     <div class="container">
         <div class="title_challenges text-center">
-            <h3><strong>Mời các bạn lựa chọn gói câu hỏi</strong></h3>
+            <h3><strong>Kết quả các bài thi đã tham gia</strong></h3>
         </div>
         <table id="listChallenge" class="table" style="background-color: rgb(250,104,85); font-size: 14px">
             <thead>
@@ -48,21 +42,19 @@
                     <th scope="col" style="color: white">STT</th>
                     <th scope="col" style="color: white">Id</th>
                     <th scope="col" style="color: white">Tên gói câu hỏi</th>
-                    <th scope="col" style="color: white">Mô tả</th>
+                    <th scope="col" style="color: white">Điểm cao nhất</th>
+                    <th scope="col" style="color: white">Thời gian tốt nhất</th>
                 </tr>
             </thead>
             <tbody>
-                <% for(var id=0; id < challengeList.length; id ++) {
+                <% for(var id=0; id < resultList.length; id ++) {
             %>
                 <tr>
                     <th scope="row" style="color: white"><%= id + 1 %></th>
-                    <th style="color: white"><%= challengeList[id].id %></th>
-                    <th>
-                        <a href="/main/startContest/<%= challengeList[id].id %>" style="color: white;">
-                            <u><%= challengeList[id].name %></u>
-                        </a>
-                    </th>
-                    <th style="color: white"><%= challengeList[id].description %></th>
+                    <th style="color: white"><%= resultList[id].id %></th>
+                    <th style="color: white"><%= resultList[id].challengeName %></th>
+                    <th style="color: white"><%= resultList[id].bestScore %></th>
+                    <th style="color: white"><%= resultList[id].bestTime %></th>
                 </tr>
                 <%
           } %>
