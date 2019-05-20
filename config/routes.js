@@ -50,8 +50,11 @@ module.exports.routes = {
   '/main/challenges' : {
     controller : 'mainController',
     action : 'getChallengesList',
+  },
+  '/challenges/:challengeId' : {
+    controller : 'mainController',
+    action : 'getQuizzById',
   }
-
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *

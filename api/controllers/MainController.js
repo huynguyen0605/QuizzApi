@@ -1,5 +1,6 @@
 var getChallengeList = require('./challenge/get-challenge-list')
 var getRankList = require('./challenge/get-ranks')
+var getQuizzList = require('./quizz/get-quizz-list');
 module.exports = {
     rank: async function (req, res) {
         var challengeId = req.query ? req.query.challengeId : null;
@@ -23,5 +24,12 @@ module.exports = {
         return res.render("challenges.ejs",{
             challengeList: challengesChunk
         })
+    },
+    getQuizzById : async function(req,res){
+        
+        return res.render("quizzList.ejs",{
+            getQuizzList: getQuizzList
+        })
     }
+
 }
