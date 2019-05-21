@@ -1,9 +1,13 @@
 var getChallengeList = require('./challenge/get-challenge-list')
 var getRankList = require('./challenge/get-ranks')
+<<<<<<< HEAD
+var getQuizzList = require('./quizz/get-quizz-list');
+=======
 var getResults = require('./user/get-results')
 var currentQuizzList = require('../const/CurrentQuizzList')
 var startChallenge = require('./challenge/start-challenge')
 var genQuizz = require('./quizz/gen-quizz-for-challenge')
+>>>>>>> d0cf39284733a4f2232747c8e83f9e6459878f7a
 module.exports = {
     logOut: function (req, res) {
         req.session.userid = null;
@@ -51,6 +55,19 @@ module.exports = {
                 resultList: resultList
             })
         }
+<<<<<<< HEAD
+        return res.render("challenges.ejs",{
+            challengeList: challengesChunk
+        })
+    },
+    getQuizzById : async function(req,res){
+        
+        return res.render("quizzList.ejs",{
+            getQuizzList: getQuizzList
+        })
+    }
+
+=======
     },
 
     startContest: async function (req, res) {
@@ -80,4 +97,5 @@ module.exports = {
             quizzNum: currentQuizzList.getCurrentQuizzIndex()
         });
     },
+>>>>>>> d0cf39284733a4f2232747c8e83f9e6459878f7a
 }

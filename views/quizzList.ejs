@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bảng xếp hạng</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+        *{
+            font-size: 16px!important;
+        }
+        .rowChallengesList{
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+
+
+
+<body>
+    <% include image.ejs %>
+    <% include navbar.ejs %>
+    <div class="container">
+        <div class="title_challenges_quizz text-center">
+            <h3><strong>Chào mừng bạn đến với các câu hỏi trong gói câu hỏi số 3</strong></h3>
+            <h4><i><strong>Note : </strong>Khi bạn click vào đáp án trả lời, trang sẽ tự động điều hướng bạn sang các câu hỏi khác</i></h4>
+        </div>
+        <div class="question_group">
+            <div class="col-md-8 col-md-push-2">
+                <div class="question">
+                    Câu 1 : javascript là ngôn ngữ gì?
+                </div>
+
+                <div class="row answer">
+                    <div class="col-md-6">
+                        <button>A.</button> Ngôn ngữ kich ban
+                    </div>
+
+                    <div class="col-md-6">
+                        <button>B.</button> dap an B
+                    </div>
+                </div>
+                <div class="row answer">
+                    <div class="col-md-6">
+                        <button>C.</button> dap an C
+                    </div>
+
+                    <div class="col-md-6">
+                        <button>D.</button> dap an D
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>
+
+</html>
