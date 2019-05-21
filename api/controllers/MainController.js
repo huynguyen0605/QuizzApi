@@ -5,8 +5,14 @@ var currentQuizzList = require('../const/CurrentQuizzList')
 var startChallenge = require('./challenge/start-challenge')
 var genQuizz = require('./quizz/gen-quizz-for-challenge')
 module.exports = {
+    logOut: function (req, res) {
+        req.session.userid = null;
+        req.session.isadmin = null;
+        res.redirect('/')
+    },
     rank: async function (req, res) {
-        var challengeId = req.query ? req.query.challengeId : null;
+        var challengeId = req.param('challengeId');
+        console.log('duongsai::===>challengeId', challengeId);
         var challengeList = await getChallengeList.getChallengeList();
         var totalRanks = await getRankList.getRank(challengeId, 10);
 

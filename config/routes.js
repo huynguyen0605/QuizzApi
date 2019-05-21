@@ -32,7 +32,7 @@ module.exports.routes = {
 
   'GET /challenges/:challengeId/quizz': { action: 'quizz/get-quizz-list' },
   'POST /challenges/:challengeId/quizz': { action: 'quizz/create-quizz' },
-  'POST /challenges/:challengeId/quizz/:quizzId/submit': { action: 'quizz/submit-quizz' }, 
+  'POST /challenges/:challengeId/quizz/:quizzId/submit': { action: 'quizz/submit-quizz' },
   'GET /challenges/:challengeId/randomQuizz': { action: 'quizz/gen-quizz-for-challenge' },
 
   'GET /quizz/:quizzId': { action: 'quizz/get-quizz' },
@@ -43,13 +43,29 @@ module.exports.routes = {
 
   '/login': { view: 'login' },
   '/register': { view: 'register' },
-  '/main/rank': {
-      controller: 'MainController',
-      action: 'rank',
+  '/': {
+    controller: 'MainController',
+    action: 'rank',
   },
-  '/main/challenges' : {
-    controller : 'MainController',
-    action : 'getChallengesList',
+  '/main/logout': {
+    controller: 'MainController',
+    action: 'logOut'
+  },
+  '/main': {
+    controller: 'MainController',
+    action: 'rank',
+  },
+  '/main/rank': {
+    controller: 'MainController',
+    action: 'rank',
+  },
+  '/main/rank/:challengeId': {
+    controller: 'MainController',
+    action: 'rank',
+  },
+  '/main/challenges': {
+    controller: 'MainController',
+    action: 'getChallengesList',
   },
   '/main/startContest/:challengeId': {
     controller: 'MainController',
