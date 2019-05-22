@@ -11,8 +11,9 @@ var instance = module.exports = {
     generateResult: async function (challengeId, userId) {
         var isResultExist = await Result.findOne({
             challengeId: challengeId,
+            userId: userId,
         })
-
+        console.log(challengeId, userId)
         if (!isResultExist) {
             var result = await Result.create({
                 challengeId: challengeId,

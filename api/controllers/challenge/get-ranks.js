@@ -45,12 +45,18 @@ var instance = module.exports = {
         //sap xep lai danh sách trả ra ở trên theo tổng điểm & tổng thời gian
         result.sort((a, b) => {
             if (a.totalScore < b.totalScore) {
-                return true;
+                return 1;
+            }
+            if (a.totalScore > b.totalScore) {
+                return -1;
             }
             if (a.totalTime > b.totalTime) {
-                return true;
+                return 1;
             }
-            return false;
+            if (a.totalTime < b.totalTime) {
+                return -1;
+            }
+            return 0;
         })
 
         //danh sách chỉ gồm userId, tổng điểm tổng thời gian

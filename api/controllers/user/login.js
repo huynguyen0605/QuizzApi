@@ -37,7 +37,7 @@ module.exports = {
                     //đăng nhập thành công
                     //lưu lại id người dùng vào session
                     this.req.session.userid = user.id;
-
+                    user.isadmin = this.req.session.isadmin
                     //xóa password trước khi trả về cho client
                     user.password = undefined;
                     return exits.customsuccess(resList.success(resMsg.LOGIN_SUCCESS, user));

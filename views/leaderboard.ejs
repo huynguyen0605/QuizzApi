@@ -291,16 +291,17 @@ Leaderboard
         function showLeaderboard(challengeId) {
             $('button').off('click'); 
             try {
-                $.ajax({
-                    url: "rank",
-                    type: "get",
-                    data: {
-                        challengeId: challengeId
-                    },
-                    success: function (result) {
-                        window.location.href='rank?challengeId=' + challengeId;
-                    }
-                })
+                // $.ajax({
+                //     url: "/main/rank",
+                //     type: "get",
+                //     data: {
+                //         challengeId: challengeId
+                //     },
+                //     success: function (result) {
+                //         window.location.href='/main/rank/' + challengeId;
+                //     }
+                // })
+                window.location.replace('/main/rank/' + challengeId);
             } catch (e) {
                 alert(e.message);
             }

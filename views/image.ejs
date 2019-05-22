@@ -24,6 +24,7 @@
             background-repeat: no-repeat;
             background-size: cover;
             position: relative;
+            z-index: -1;
         }
 
         /* Place text in the middle of the image */
@@ -39,12 +40,24 @@
 </head>
 
 <body>
+        <div class="group_button">
+                <button 
+                class="btn btn-danger" style="float : right"
+                onClick="logOut()"
+                >Đăng xuất</button>
+            </div>
     <div class="hero-image">
         <div class="hero-text">
             <h1>QuizzApp</h1>
             <p>Ứng dụng thi thử Tiếng Anh tuyệt nhất</p>
         </div>
     </div>
-</body>
 
+    
+</body>
+<script>
+    function logOut() {
+        window.location.replace('/main/logout')
+    }
+</script>
 </html>

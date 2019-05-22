@@ -67,11 +67,10 @@ module.exports.routes = {
     controller: 'MainController',
     action: 'getChallengesList',
   },
-<<<<<<< HEAD
   '/challenges/:challengeId' : {
     controller : 'mainController',
     action : 'getQuizzById',
-=======
+  },
   '/main/startContest/:challengeId': {
     controller: 'MainController',
     action: 'startContest'
@@ -107,7 +106,6 @@ module.exports.routes = {
   '/dashboard/challenges/:challengeId/quizz/addQuizz/:quizzId': {
     controller: 'DashboardController',
     action: 'addQuizz'
->>>>>>> d0cf39284733a4f2232747c8e83f9e6459878f7a
   }
   /***************************************************************************
   *                                                                          *
