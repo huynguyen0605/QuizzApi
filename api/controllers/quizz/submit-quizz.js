@@ -46,7 +46,7 @@ var instance = module.exports = {
         var quizz = await Quizz.findOne({
             id: quizzId,
         });
-
+        currentQuizzList.setAnserwed(quizzId, answer);
         //tra loi xong, chuyen sang cau tiep
         currentQuizzList.increaseQuizzNum();
         if (quizz) {

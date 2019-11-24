@@ -1,10 +1,23 @@
 var currentQuizzList = [];
 var currentQuizzIndex = 0;
+var answeredList = {};
 var currentPoint = 0;
 var startTime = 0;
 module.exports = {
+    setAnserwed: function (quizzId, answer) {
+        answeredList[quizzId] = answer;
+    },
+    getAnserwed: function () {
+        return answeredList;
+    },
+    getTotalAnserwed: function () {
+        return Object.keys(answeredList).length;
+    },
     setCurrentQuizzList: function (quizzList) {
         currentQuizzList = quizzList;
+    },
+    getCurrentQuizz: function () {
+        return currentQuizzList;
     },
     setCurrentQuizzIndex: function (index) {
         currentQuizz = index;
@@ -33,6 +46,7 @@ module.exports = {
     reset: function () {
         currentQuizzList = [];
         currentQuizzIndex = 0;
+        answeredList = [];
         currentPoint = 0;
         startTime = 0;
     }

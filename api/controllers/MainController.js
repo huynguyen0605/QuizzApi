@@ -5,6 +5,17 @@ var getResults = require('./user/get-results')
 var currentQuizzList = require('../const/CurrentQuizzList')
 var startChallenge = require('./challenge/start-challenge')
 var genQuizz = require('./quizz/gen-quizz-for-challenge')
+
+function tsToDate(ts) {
+    ts = 30 * 60 * 1000 - ts;
+    var d = new Date(ts);
+    var minute = d.getMinutes();
+    if (minute < 10) minute = "0" + minute;
+    var sec = d.getSeconds();
+    if (sec < 10) sec = "0" + sec;
+    return minute + ":" + sec; 
+};
+
 module.exports = {
     logOut: function (req, res) {
         req.session.userid = null;
@@ -13,7 +24,6 @@ module.exports = {
     },
     rank: async function (req, res) {
         var challengeId = req.param('challengeId');
-        console.log('duongsai::===>challengeId', challengeId);
         var challengeList = await getChallengeList.getChallengeList();
         var totalRanks = await getRankList.getRank(challengeId, 10);
 
@@ -54,7 +64,6 @@ module.exports = {
         }
     },
     getQuizzById : async function(req,res){
-        
         return res.render("quizzList.ejs",{
             getQuizzList: getQuizzList
         })
@@ -75,16 +84,24 @@ module.exports = {
     getSingleQuizz: async function (req, res) {
         var challengeId = req.param('challengeId');
         var startTime = req.param('startTime');
-        var currentQuizz = currentQuizzList.getQuizzByIndex(currentQuizzList.getCurrentQuizzIndex());
-        if (!currentQuizz) return res.redirect('/main/statistic')
+        var quizzNum = Number(req.param('quizz'));
+        var currentQuizz = currentQuizzList.getQuizzByIndex(quizzNum != null ? quizzNum : currentQuizzList.getCurrentQuizzIndex());
+        var remainTime = Date.now() - startTime + 1000;
+        if (!currentQuizz || remainTime <= 0 || currentQuizzList.getTotalAnserwed() == 10) return res.redirect('/main/statistic')
         var currentScore = currentQuizzList.getCurrentPoint();
+        var isAnserwed = currentQuizzList.getAnserwed()[currentQuizz.id];
         return res.render('singlequizz.ejs', {
             currentScore: currentScore,
             startTime: startTime,
+            didTime: tsToDate(remainTime),
             challengeId: challengeId,
             currentQuizz: currentQuizz,
             currentQuizzId: currentQuizz.id,
-            quizzNum: currentQuizzList.getCurrentQuizzIndex()
+            quizzNum: quizzNum != null ? quizzNum : currentQuizzList.getCurrentQuizzIndex(),
+            anserwedList: currentQuizzList.getAnserwed(),
+            correctAnswer: currentQuizz.correctAnswer,
+            isAnserwed,
+            isCorrect: isAnserwed == currentQuizz.correctAnswer,
         });
     },
 }
